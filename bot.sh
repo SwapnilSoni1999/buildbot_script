@@ -37,29 +37,9 @@ then
 
 		#upload to gdrive
 		sendMessage "Uploading to Gdrive..."
-		gdrive upload $OUTPUT_LOC | tee upload.log
-
-		#get file id
-		sed -e 's/.*Uploaded\(.*\)at.*/\1/' upload.log >> id.txt
-		sendMessage "Upload Finished."
-		sed -e '1d' id.txt >> final.txt
-		FILE_ID=$(cat final.txt)
-
-		#set permission to sharing
-		gdrive share $FILE_ID
-
-		#finally output the sharing url
-		URL='https://drive.google.com/open?id='$FILE_ID
-		SHARE="$(echo -e "${URL}" | tr -d '[:space:]')"
-		echo $SHARE >> url.txt
-
-		#MESSAGE=$(cat url.txt)
-		echo $SHARE
-		sendMessage $SHARE
+		URL=$(gdrive upload --share $UPLOAD_LOC | egrep -o 'https?://[^ ]+')
 
 		BEELD_FINISHED=true
-		#clean up
-		rm upload.log final.txt id.txt url.txt
 	else
 		sendMessage "beeld phel nibba"
 		echo "brunch phel"
@@ -77,12 +57,12 @@ rm lunch.log
 read -r -d '' SUMMARY << EOM
 ROM: $ZIPNAAM
 Build: $BUILD_TAIP
-LINK: $SHARE
+LINK: [Download From Gdrive]($URL)
 NOTES: $NOTES
 MD5: $MD5
 EOM
 
-                curl -s "https://api.telegram.org/bot${BOT_API_KEY}/sendmessage" --data "text=$SUMMARY&chat_id=$CHAT_ID" 1> /dev/null
+                curl -s "https://api.telegram.org/bot${BOT_API_KEY}/sendmessage" -d parse_mode="Markdown" --data "text=$SUMMARY&chat_id=$CHAT_ID"  1> /dev/null
 echo -e;
 
 #fi
