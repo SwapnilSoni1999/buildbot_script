@@ -2,7 +2,7 @@
 
 # Sync with configs
 source bot-mega.conf
-source build/envsetup.sh
+#source build/envsetup.sh
 
 sendMessage() {
 MESSAGE=$1
@@ -12,18 +12,8 @@ curl -s "https://api.telegram.org/bot${BOT_API_KEY}/sendmessage" --data "text=$M
 echo -e;
 }
 
-sendMessage "Starting build $FULL_ROM_NAME for $FULL_DEVICE_NAME"
-
-# Start Build
-#lunch $ROM\_$DEVICE-userdebug && mka bacon | tee build.log	# Enable this for standard "mka bacon"
-lunch $ROM\_$DEVICE-userdebug && make corvus | tee build.log	# Enable and edit this if ROM has specific "make command" (make corvus, mka aex, etc)
-# catch lunch error
 if [ $? -eq 0 ]
 then
-
-		echo "Build Completed! Uploading to MEGA.."
-		sendMessage "Build Completed! Uploading to MEGA.."
-
 		# Grab full file output
 		FILE_OUTPUT=$(grep -Po 'Package Complete: \K[^ ]+' build.log)
 		echo $FILE_OUTPUT
@@ -68,14 +58,9 @@ MD5: $MD5
 NOTES: $NOTES
 EOM
 
-		curl -s "https://api.telegram.org/bot${BOT_API_KEY}/sendPhoto" -d parse_mode="Markdown" --data "photo=$PHOTO_LINK&caption=$SUMMARY&chat_id=$CHAT_ID"  1> /dev/null
+	curl -s "https://api.telegram.org/bot${BOT_API_KEY}/sendPhoto" -d parse_mode="Markdown" --data "photo=$PHOTO_LINK&caption=$SUMMARY&chat_id=$CHAT_ID"  1> /dev/null
 
-		curl -s "https://api.telegram.org/bot${BOT_API_KEY}/sendSticker?chat_id=$CHAT_ID&sticker=$STICKER_ID"  1> /dev/null
-
-echo -e;
-
-#fi
-
+	curl -s "https://api.telegram.org/bot${BOT_API_KEY}/sendSticker?chat_id=$CHAT_ID&sticker=$STICKER_ID"  1> /dev/null
 
 exit 1
 
