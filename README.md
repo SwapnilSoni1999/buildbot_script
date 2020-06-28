@@ -2,7 +2,7 @@
 How to use:
 
 1. Get your bot API key from [Telegram's BotFather](https://t.me/BotFather)
-2. Assign BOT API Key in `bot.config`
+2. Assign BOT API Key in `bot-mega.config`
 ```bash
         export BOT_API_KEY=ABCD12345:12345AbCDefghIJK
 ```
@@ -15,7 +15,6 @@ How to use:
         # Configs
         ROM=lineage
         DEVICE=h930
-        
 ```
 5. Assign your Manual Configs (info for Telegram post)
 ```bash
@@ -28,27 +27,26 @@ How to use:
 	BUILD_DATE=$(date +%Y-%m-%d)
 	BUILD_TYPE="Bot Build"
 	NOTES="Not Tested!"
-        
 ```
 6. Assign your # Directories to create on MEGA shows up as /Root/$DEVICE_DIR/$ROM_DIR
 ```bash
         # Directories
 	DEVICE_DIR="H930"
 	ROM_DIR="Corvus"
-        
 ```
-7. After all the above is set you can run `bash test.sh` in a terminal to test Telegram output without running the whole build! the output should look like this.
+7. After all the above is set, Here's an example of the Output on Telegram after running the `bot-mega.sh`:
+
+![Output Example](https://i.imgur.com/XSNIoI4.png)
+
+8. Extra 1, `output.sh` posts a test output on Telegram, 
 ```bash
-	Corvus OS Android 10 for LG v30 H930
-
-	Author: @N7_BADA
-	Build Date: 2020-06-26
-	Build Type: Bot Build
-	MEGA LINK: https://mega.nz/#!4PwzSLjB!7nEAyDnejaCTRWyK90XXsWiR0CgWIqo0hL2AvkAYgrw 
-	SIZE: 680M
-	MD5: f5e8fc5d86aed36d2a68e67e80f292de
-
-	NOTES: Not Tested!
+        # Extra
+        bash output.sh        
+```
+9. Extra 2, `repost.sh` will reupload or fetch the link of the latest build and post it on Telegram.
+```bash
+        # Extra
+        bash repost.sh        
 ```
 
 (PS: in some cases like AEX,Corvus,Derpfest build command is `mka aex, make corvus, mka kronic` according to aex, corvus, derpfest build docs, you can change build command from line [18](https://github.com/N7-BADA/buildbot_script/blob/master/bot-mega.sh#L18) and [19](https://github.com/N7-BADA/buildbot_script/blob/master/bot-mega.sh#L19)`)
