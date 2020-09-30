@@ -79,4 +79,4 @@ How to use:
 `BUILD_TAIP` will set build type for eg. `Test` or `Alpha`
 `NOTES` will attach your message or note to send over telegram
 
-(PS: in some cases like AEX build command is `mka aex` according to aex build docs, you can change build command from [here](https://github.com/N7-BADA/buildbot_script/blob/master/bot.sh#L25)`)
+(PS: in some cases like AEX build command is `mka aex` according to aex build docs,but you can change build command from [here](https://github.com/N7-BADA/buildbot_script/blob/master/bot.sh#L25)`)
